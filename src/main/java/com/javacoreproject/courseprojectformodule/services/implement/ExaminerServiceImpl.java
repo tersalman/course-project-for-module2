@@ -22,14 +22,17 @@ public class ExaminerServiceImpl implements ExaminerService
     }
 
     @Override
-    public Set<Question> getQuestions(int amount) {
+    public Collection<Question> getQuestions(int amount) {
         Set<Question> set = new HashSet<>();
-        if (amount >= JavaQuestionService.questions.size()) {
+        if (amount > questionService.getAll().size()) {
             throw new AmountBiggerThanQuestionsInArchiveException();
         }
-        for (int i = 0; i <= amount; i++) {
+        for (int i = 0; i <= amount;) {
             set.add(questionService.getRandomQuestion());
+            if (set.size() <= amount) {
+                ++i;
+            }
         }
-        return set;
+        return Set.copyOf(set);
     }
 }

@@ -10,8 +10,11 @@ import java.util.stream.Stream;
 
 @Service
 public class JavaQuestionService implements QuestionService {
-     public static Set<Question> questions = new HashSet<>();
+     public  Set<Question> questions = new HashSet<>();
 
+    private Set<Question> getQuestions() {
+        return questions;
+    }
 
     @Override
     public Question add(String question, String answer) {
@@ -36,14 +39,8 @@ public class JavaQuestionService implements QuestionService {
     Question question = new Question("a", "b");
 
     @Override
-    public Map<String,String> getAll() {
-        Map<String,String> map = questions.stream()
-                .collect(Collectors.toMap(
-                        k->k.getQuestion(),
-                        v->v.getAnswer()
-                        )
-                );
-        return map;
+    public Collection<Question> getAll() {
+        return Set.copyOf(questions);
     }
 
     @Override

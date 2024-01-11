@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.Set;
 
 @RestController
@@ -20,7 +21,7 @@ public class ExamController {
 
 
     @GetMapping(path = "/getQuestions")
-    public Set<Question> getQuestions(@RequestParam int amount) {
+    public Collection<Question> getQuestions(@RequestParam int amount) {
         return examinerService.getQuestions(amount);
     }
 

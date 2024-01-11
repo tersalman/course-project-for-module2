@@ -4,6 +4,7 @@ import com.javacoreproject.courseprojectformodule.modals.Question;
 import com.javacoreproject.courseprojectformodule.services.implement.ExaminerServiceImpl;
 import com.javacoreproject.courseprojectformodule.services.implement.JavaQuestionService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,6 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ExaminerServiceImplTest {
@@ -21,20 +23,22 @@ public class ExaminerServiceImplTest {
     @InjectMocks
     private ExaminerServiceImpl examinerService;
 
-
-
     Question question1 = new Question("hi", "hiAgain");
+
+    @BeforeEach
+    void setUp() {
+        javaQuestionService.add(question1);
+    }
+
     @Test
     void shouldReturnSetOfQuestions() {
-        int amount = 2;
+        int amount =1;
         Set<Question> set = new HashSet<>() ;
-            set.add(question1);
-            set.add(question1);
             set.add(question1);
 
         Mockito.when(javaQuestionService.getRandomQuestion()).thenReturn(question1);
-
-        Assertions.assertEquals(set,examinerService.getQuestions(amount));
+        Mockito.when(javaQuestionService.getAll()).thenReturn(set);
+        Assertions.assertIterableEquals(new HashSet<>(Set.of(question1)),examinerService.getQuestions(amount));
 
 
     }
