@@ -1,5 +1,6 @@
 package com.javacoreproject.courseprojectformodule;
 
+import com.javacoreproject.courseprojectformodule.exceptions.AmountBiggerThanQuestionsInArchiveException;
 import com.javacoreproject.courseprojectformodule.modals.Question;
 import com.javacoreproject.courseprojectformodule.services.implement.ExaminerServiceImpl;
 import com.javacoreproject.courseprojectformodule.services.implement.JavaQuestionService;
@@ -13,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,6 +30,18 @@ public class ExaminerServiceImplTest {
     @BeforeEach
     void setUp() {
         javaQuestionService.add(question1);
+    }
+
+    @Test
+    void shouldReturnException() {
+        int amount = 10;
+        Mockito.when(javaQuestionService.getAll()).thenReturn(List.of());
+
+        Assertions.assertThrows(
+                AmountBiggerThanQuestionsInArchiveException.class,
+                () -> examinerService.getQuestions(amount)
+        );
+
     }
 
     @Test
