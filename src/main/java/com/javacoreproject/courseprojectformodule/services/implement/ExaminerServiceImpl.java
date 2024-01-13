@@ -27,12 +27,8 @@ public class ExaminerServiceImpl implements ExaminerService
         if (amount > questionService.getAll().size()) {
             throw new AmountBiggerThanQuestionsInArchiveException();
         }
-        int itr = 0;
-        while (itr <= amount) {
+        while (set.size()<= amount) {
             set.add(questionService.getRandomQuestion());
-            if (set.size() <= amount) {
-                ++itr;
-            }
         }
         return Set.copyOf(set);
     }
