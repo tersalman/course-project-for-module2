@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,8 +29,8 @@ public class JavaController {
         Question question1 = new Question(question, answer);
         return questionService.remove(question1);
     }
-    @GetMapping
-    public Map<String, String> getQuestions() {
+    @GetMapping("/")
+    public Collection<Question> getQuestions() {
         return questionService.getAll();
     }
 

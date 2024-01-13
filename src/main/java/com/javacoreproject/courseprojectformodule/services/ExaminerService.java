@@ -9,5 +9,5 @@ import java.util.Set;
 @Service
 public interface ExaminerService {
 
-    Set<Question> getQuestions(int amount);
+    Collection<Question> getQuestions(int amount);
 }
